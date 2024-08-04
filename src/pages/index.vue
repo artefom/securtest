@@ -17,7 +17,6 @@
           :continuous="false"
           :show-arrows="false"
           progress="#1956b3"
-          height="400"
           hide-delimiters
           hide-delimiter-background
           v-model="currentSlide"
@@ -199,8 +198,15 @@ function reset() {
 
 <style scoped>
 .question-body {
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
+
+@media (max-width: 600px) {
+  .question-body {
+    font-size: 1.2rem;
+  }
+}
+
 </style>
 
 <style>
