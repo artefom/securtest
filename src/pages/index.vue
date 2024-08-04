@@ -105,14 +105,13 @@ let testResult = null;
 
 let questions = [
   {
-    question:
-      "Даете ли вы объявление о вашем мероприятии открыто\
-      (в открытых тг-каналах, в объявлениях, \
-      со своего личного аккаунта)?",
+    question: "Вы приглашаете только знакомых людей?",
     answer: null,
   },
   {
-    question: "Вы приглашаете только знакомых людей?",
+    question:
+      "Даете ли вы объявление о вашем мероприятии публично со\
+      своего личного аккаунта или от своего имени?",
     answer: null,
   },
   {
@@ -152,7 +151,7 @@ function encodeAnswers(questions) {
   }
 
   // Convert boolean answers to binary string
-  let binaryString = questions.map(q => (q.answer ? '1' : '0')).join('');
+  let binaryString = questions.map((q) => (q.answer ? "1" : "0")).join("");
 
   return binaryString;
 }

@@ -50,13 +50,23 @@ def render(input_jinja_file: str, output_folder: str):
     # Render and save each variant
     for combo in bool_combinations:
         context = {
-            'ans1': combo[0],
-            'ans2': combo[1],
-            'ans3': combo[2],
-            'ans4': combo[3],
-            'ans5': combo[4],
-            'ans6': combo[5],
-            'trigger': combo[5],
+            # Даете ли вы объявление о вашем мероприятии открыто
+            'only_known': combo[0],
+
+            # Вы приглашаете только знакомых людей?
+            'open_event': combo[1],
+
+            # база с данными участников
+            'participant_db': combo[2],
+
+            # триггерное название
+            'trigger_title': combo[3],
+
+            # Аресты на подобных мероприятиях
+            'arrests': combo[4],
+
+            # тематика мероприятия триггерная
+            'trigger_theme': combo[5],
         }
 
         rendered_text = srip_text(template.render(context))
