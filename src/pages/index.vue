@@ -12,7 +12,7 @@
     <h1 class="mb-10">Опросник по безопасности</h1>
 
     <v-expand-transition>
-      <div v-if="showQuestions" style="max-width: 700px; width: 100%">
+      <div v-if="showQuestions" style="max-width: 700px; width: 100%;">
         <v-carousel
           :continuous="false"
           :show-arrows="false"
@@ -20,6 +20,7 @@
           hide-delimiters
           hide-delimiter-background
           v-model="currentSlide"
+          style="height: 300px;"
         >
           <v-carousel-item v-for="(question, i) in questions" :key="i">
             <div style="height: 100%; display: flex; flex-direction: column">
@@ -204,6 +205,12 @@ function reset() {
 @media (max-width: 600px) {
   .question-body {
     font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .question-body {
+    font-size: 1.0rem;
   }
 }
 
