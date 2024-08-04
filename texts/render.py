@@ -18,7 +18,7 @@ def srip_text(text: str) -> str:
         else:
             last_line_empty = False
         
-        result.append(line.strip())
+        result.append(line.lstrip())
     return "\n".join(result)
 
 
@@ -50,11 +50,11 @@ def render(input_jinja_file: str, output_folder: str):
     # Render and save each variant
     for combo in bool_combinations:
         context = {
-            # Даете ли вы объявление о вашем мероприятии открыто
-            'only_known': combo[0],
-
             # Вы приглашаете только знакомых людей?
-            'open_event': combo[1],
+            'closed_event': combo[0],
+
+            # Даете ли вы объявление о вашем мероприятии открыто
+            'public_announce': combo[1],
 
             # база с данными участников
             'participant_db': combo[2],
