@@ -70,24 +70,7 @@
           justify-items: center;
         "
       >
-        <p>
-          Lorem ipsum odor amet, consectetuer adipiscing elit. Dictum adipiscing
-          lobortis platea montes mus nascetur, nisi eget senectus. Maecenas
-          montes per nulla sociosqu, elementum conubia sit potenti. Torquent
-          fusce sagittis maecenas purus porttitor aenean montes sociosqu.
-          Pharetra vivamus ac proin purus mus amet tempor netus. Rhoncus
-          elementum velit blandit et magna quis luctus nibh. Neque donec semper
-          pellentesque auctor rutrum. Gravida luctus habitasse, bibendum
-          elementum felis consequat sit rhoncus. Commodo congue nisl quis
-          lacinia dis aptent aliquam justo. Rutrum himenaeos viverra ex nec quam
-          mattis nascetur fames. Maximus nibh sem parturient pellentesque sed
-          luctus. Orci finibus magnis ridiculus proin lacinia justo est
-          scelerisque. Cursus scelerisque conubia aliquam; in dui bibendum.
-          Adipiscing ullamcorper finibus vulputate vulputate eleifend gravida
-          condimentum. Parturient auctor mi senectus, tellus habitant tempor
-          aenean. Tristique curabitur nisi nisl ac viverra adipiscing. Euismod
-          dictum posuere porta sapien sed curae id hendrerit.
-        </p>
+        <div class="test-result" v-html="testResult" />
         <v-btn variant="text" class="mt-5" @click="reset"
           >Пройти тест заново</v-btn
         >
@@ -114,9 +97,11 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
 
 let currentSlide = ref(0);
 let showQuestions = ref(true);
+let testResult = null;
 
 let questions = [
   {
@@ -142,7 +127,46 @@ let questions = [
       (например “ЛГБТ-шабаш” или “антивоенный пикник”)?",
     answer: null,
   },
+  {
+    question:
+      "Были ли уже случаи задержаний\\арестов на подобных мероприятиях,\
+       даже если формально они законные (был случай, когда работников \
+       гей-бара привлекли за ЛГБТ-пропаганду)?",
+    answer: null,
+  },
+  {
+    question:
+      "Является ли сама тематика мероприятия потенциально\
+      триггерной и привлекающей внимание полиции\
+      (ЛГБТ-повестка, феминизм, антивоенный активизм итп),\
+      или же вы собрались делать что-то безобидное\
+      (пикник, просмотр нового диснеевского мультика)?",
+    answer: null,
+  },
 ];
+
+function encodeAnswers(questions) {
+  // Ensure there are exactly 6 questions
+  if (questions.length !== 6) {
+    throw new Error("There must be exactly 6 questions");
+  }
+
+  // Convert boolean answers to binary string
+  let binaryString = questions.map(q => (q.answer ? '1' : '0')).join('');
+
+  return binaryString;
+}
+
+async function fetchRenderedText() {
+  console.log("Fetching result");
+  try {
+    const variantNum = encodeAnswers(questions);
+    const response = await axios.get(`/rendered/variant${variantNum}`);
+    testResult = response.data;
+  } catch (error) {
+    console.error("Error fetching rendered text:", error);
+  }
+}
 
 function back() {
   if (currentSlide.value > 0) {
@@ -150,14 +174,18 @@ function back() {
   }
 }
 
+async function showResult() {
+  await fetchRenderedText();
+  showQuestions.value = false;
+}
+
 function select(i, answer) {
-  console.log("Selecting");
   questions[i].answer = answer;
 
   if (currentSlide.value < questions.length - 1) {
     currentSlide.value += 1;
   } else {
-    showQuestions.value = false;
+    showResult();
   }
 }
 
@@ -174,5 +202,16 @@ function reset() {
 <style scoped>
 .question-body {
   font-size: 1.5em;
+}
+</style>
+
+<style>
+.test-result span {
+  color: #1956b3;
+  font-weight: bold;
+}
+
+.test-result p {
+  margin-top: 10px;
 }
 </style>
