@@ -27,6 +27,9 @@ RUN npm run build
 FROM nginx:1.27-alpine
 WORKDIR /var/www
 COPY .deploy/nginx.conf /etc/nginx/conf.d/default.conf
+COPY .deploy/podosintovik.org.crt /etc/nginx/ssl/podosintovik.org.crt
+COPY .deploy/podosintovik.org.key /etc/nginx/ssl/podosintovik.org.key
+
 RUN nginx -t
 COPY --from=build /app/dist /var/www
 

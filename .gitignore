@@ -4,6 +4,9 @@ node_modules
 
 .venv
 
+.deploy/podosintovik.org.crt
+.deploy/podosintovik.org.key
+
 # local env files
 .env.local
 .env.*.local
