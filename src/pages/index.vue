@@ -18,17 +18,7 @@
       style="background-image: url('/design/front_shrooms.svg'); z-index: 2"
     />
 
-    <div
-      v-if="showQuestions"
-      style="
-        height: 80%;
-        width: 90%;
-        max-width: 60rem;
-        max-height: 30rem;
-        display: flex;
-        flex-direction: column;
-      "
-    >
+    <div v-if="showQuestions" class="questionarie-container" style="">
       <div style="display: flex; align-items: center; margin-bottom: 0.5em">
         <img
           class="title-image"
@@ -51,23 +41,22 @@
           hide-delimiters
           hide-delimiter-background
           v-model="currentSlide"
-          style="height: 100%"
+          style="height: 100%; overflow: hidden"
         >
           <v-carousel-item v-for="(question, i) in questions" :key="i">
-            <div style="height: 100%; display: flex; flex-direction: column">
-              <div
-                style="
-                  flex-grow: 1;
-                  display: flex;
-                  align-items: center;
-                  min-height: 0;
-                  overflow-y: auto;
-                "
-              >
+            <div
+              style="
+                height: 100%;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div style="flex-grow: 1; overflow-y: auto">
                 <p class="question-body">{{ question.question }}</p>
               </div>
 
-              <div style="display: flex; align-items: center; max-width: 40em">
+              <div style="display: flex; align-items: center">
                 <v-btn
                   prepend-icon="mdi-check"
                   :variant="
@@ -268,8 +257,13 @@ function reset() {
   position: relative;
 }
 
-.question-body {
-  font-size: 1.5em;
+.questionarie-container {
+  height: 80%;
+  width: 90%;
+  max-width: 60rem;
+  max-height: 30rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .questionarie-body {
@@ -277,6 +271,11 @@ function reset() {
   height: 100%;
   padding: 3em 5em;
   border-radius: 1em;
+}
+.question-body {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 .title-image {
@@ -306,6 +305,28 @@ function reset() {
   padding-right: 3em;
 }
 
+.back-button {
+  margin-right: calc(
+    max(
+      -1 * ((50vw + (max(50vw, 50vh * 1.77777) * 0.55)) -
+            (50vw + (min(90vw, 60rem) / 2))),
+      0px
+    )
+  );
+}
+
+@media (max-width: 1000px) {
+  .questionarie-container {
+    max-height: 50rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .questionarie-container {
+    height: 90%;
+  }
+}
+
 @media (max-width: 700px) {
   .results-body {
     padding: 2em 0.5em;
@@ -316,7 +337,7 @@ function reset() {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 600px) or (max-height: 500px) or ((max-height: 900px) and (max-width: 700px)) {
   .title-image {
     height: 3em;
   }
@@ -337,12 +358,12 @@ function reset() {
     font-size: 1.5em;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 350px) {
   .back-button {
     display: none;
   }
 }
-@media (max-width: 300px) {
+@media (max-width: 300px) or ((max-height: 500px) and (max-width: 700px)) or ((max-height: 400px) and (max-width: 900px)) {
   .results-header {
     font-size: 1em;
   }
