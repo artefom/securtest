@@ -22,7 +22,31 @@
       </div>
 
       <div class="default-border questionarie-body">
+        <div
+          v-if="showLanding"
+          style="display: flex; flex-direction: column; height: 100%"
+        >
+          <p class="question-body" style="flex-grow: 1">
+            Привет! Этот тест — часть
+            <a href="http://localhost:8080">хендбука</a> , в котором мы собрали
+            инструкции по организации и проведению некоторых оффлайн-ивентов.
+            Если вы попали сюда из другого места и не читали этот документ,
+            обязательно с ним ознакомьтесь, это поможет корректному восприятию
+            теста!
+          </p>
+
+          <v-btn
+            text="Пройти опросник"
+            density="comfortable"
+            size="large"
+            color="primary"
+            variant="flat"
+            @click="start"
+          ></v-btn>
+        </div>
+
         <v-carousel
+          v-if="!showLanding"
           :continuous="false"
           :show-arrows="false"
           progress="primary"
@@ -141,6 +165,7 @@ import { ref } from "vue";
 import axios from "axios";
 
 let currentSlide = ref(0);
+let showLanding = ref(true);
 let showQuestions = ref(true);
 let testResult = null;
 
@@ -219,6 +244,10 @@ function back() {
   }
 }
 
+function start() {
+  showLanding.value = false;
+}
+
 async function showResult() {
   await fetchRenderedText();
   showQuestions.value = false;
@@ -291,6 +320,11 @@ function reset() {
   padding: 1em;
 }
 
+.question-body a {
+  color: rgb(var(--v-theme-primary));
+  font-weight: bold;
+}
+
 .disclaimer a {
   color: rgb(var(--v-theme-primary));
   font-weight: bold;
@@ -322,7 +356,7 @@ function reset() {
     justify-content: baseline !important;
   }
   .questionarie-container {
-    margin-top: 5em;
+    margin-top: 3.5em;
     height: 65%;
   }
   .front-shrooms {
@@ -343,7 +377,6 @@ function reset() {
 .questionarie-container {
   width: 90%;
   max-width: 60rem;
-  /* max-height: 30rem; */
   display: flex;
   flex-direction: column;
 }
@@ -399,6 +432,20 @@ function reset() {
   );
 }
 
+@media (min-width: 900px) {
+  .disclaimer {
+    font-size: 1.5em;
+  }
+
+  .questionarie-body {
+    max-height: 30rem;
+  }
+
+  .results-body {
+    max-width: 80em;
+  }
+}
+
 @media (max-width: 700px) {
   .results-body {
     padding: 2em 0.5em;
@@ -439,7 +486,7 @@ function reset() {
     display: none;
   }
 }
-@media (max-width: 300px) or ((max-height: 500px) and (max-width: 700px)) or ((max-height: 400px) and (max-width: 900px)) {
+@media (max-width: 300px) or ((max-height: 500px) and (max-width: 700px)) or ((max-height: 400px) and (max-width: 900px)) or ((max-height: 700px) and (max-width: 400px)) {
   .logoline-size {
     font-size: 0.3em;
   }
@@ -489,6 +536,12 @@ function reset() {
   }
   .questionarie-body .v-btn__content {
     display: none !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .test-result {
+    font-size: 1.5em;
   }
 }
 
