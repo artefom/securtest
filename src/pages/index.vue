@@ -333,6 +333,7 @@ function reset() {
 
 .results-header {
   margin-bottom: 1em;
+  color: #6D5D8F;
 }
 
 .results-scroller {
@@ -436,7 +437,7 @@ function reset() {
 }
 
 .test-result span {
-  color: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-secondary));
   font-weight: bold;
 }
 
