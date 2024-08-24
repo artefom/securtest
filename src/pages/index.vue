@@ -35,14 +35,20 @@
             теста!
           </p>
 
-          <v-btn
-            text="Пройти опросник"
-            density="comfortable"
-            size="large"
-            color="primary"
-            variant="flat"
-            @click="start"
-          ></v-btn>
+          <div style="width: 100%; display: flex; justify-content: center">
+            <v-btn
+              style="
+                font-family: 'Kelly Slab', sans-serif;
+                font-weight: bold;
+                color: white !important;
+              "
+              size="x-large"
+              color="primary"
+              variant="flat"
+              @click="start"
+              >Пройти опросник</v-btn
+            >
+          </div>
         </div>
 
         <v-carousel
