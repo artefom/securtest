@@ -1,0 +1,34 @@
+@import url("./fonts.scss");
+
+h1 {
+  font-size: 2.5em;
+  line-height: 1;
+  font-weight: normal;
+  font-family: "Kelly Slab", sans-serif;
+}
+
+// Setting
+.v-application {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.default-border {
+  border: 2px solid currentColor;
+}
+
+.v-btn--variant-outlined {
+  border: 2px solid currentColor !important;
+}
+
+// Fills the whole page
+.filler {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}

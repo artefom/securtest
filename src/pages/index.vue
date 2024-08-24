@@ -1,26 +1,57 @@
 <template>
   <div
+    class="bgimage"
     style="
+      height: 100%;
+      max-height: 100vh;
+      max-width: 100vw;
+      width: 100%;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 100%;
       justify-content: center;
       align-items: center;
-      padding: 1em;
     "
   >
-    <h1 class="qtitle mb-10">Опросник по безопасности</h1>
+    <div
+      class="filler"
+      style="background-image: url('/design/front_shrooms.svg'); z-index: 2"
+    />
 
-    <v-expand-transition>
-      <div v-if="showQuestions" style="max-width: 700px; width: 100%">
+    <div
+      v-if="showQuestions"
+      style="
+        height: 80%;
+        width: 90%;
+        max-width: 60rem;
+        max-height: 30rem;
+        display: flex;
+        flex-direction: column;
+      "
+    >
+      <div style="display: flex; align-items: center; margin-bottom: 0.5em">
+        <img
+          class="title-image"
+          src="/design/logo_white.svg"
+          alt="Description"
+        />
+        <div>
+          <h1 class="qtitle">
+            опросник <br />
+            по безопасности
+          </h1>
+        </div>
+      </div>
+
+      <div class="default-border questionarie-body">
         <v-carousel
           :continuous="false"
           :show-arrows="false"
-          progress="#1956b3"
+          progress="primary"
           hide-delimiters
           hide-delimiter-background
           v-model="currentSlide"
-          style="height: 300px"
+          style="height: 100%"
         >
           <v-carousel-item v-for="(question, i) in questions" :key="i">
             <div style="height: 100%; display: flex; flex-direction: column">
@@ -36,29 +67,38 @@
                 <p class="question-body">{{ question.question }}</p>
               </div>
 
-              <div style="display: flex; align-items: center">
+              <div style="display: flex; align-items: center; max-width: 40em">
                 <v-btn
                   prepend-icon="mdi-check"
-                  :variant="question.answer === true ? 'flat' : 'outlined'"
+                  :variant="
+                    question.answer_display === true ? 'flat' : 'outlined'
+                  "
                   text="Да"
-                  color="#1956b3"
+                  color="primary"
+                  density="comfortable"
+                  size="large"
                   @click="select(i, true)"
                 ></v-btn>
 
                 <v-btn
                   prepend-icon="mdi-close"
-                  :variant="question.answer === false ? 'flat' : 'outlined'"
+                  :variant="
+                    question.answer_display === false ? 'flat' : 'outlined'
+                  "
                   class="ml-3"
                   text="Нет"
-                  color="black"
+                  density="comfortable"
+                  size="large"
                   @click="select(i, false)"
                 ></v-btn>
 
                 <div style="flex-grow: 1"></div>
                 <v-btn
                   v-if="i > 0"
+                  class="back-button"
                   icon="mdi-arrow-left"
-                  variant="text"
+                  variant="outlined"
+                  density="comfortable"
                   @click="back"
                 />
               </div>
@@ -66,40 +106,44 @@
           </v-carousel-item>
         </v-carousel>
       </div>
-    </v-expand-transition>
-
+    </div>
     <v-expand-transition>
       <div
         v-if="!showQuestions"
         style="
-          max-width: 700px;
+          height: 100%;
+          width: 100%;
           display: flex;
-          flex-direction: column;
-          justify-items: center;
+          justify-content: center;
+          background-image: url('/design/desktop_white_bg.svg');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         "
       >
-        <div class="test-result" v-html="testResult" />
-        <v-btn variant="text" class="mt-5" @click="reset"
-          >Пройти тест заново</v-btn
-        >
+        <div class="results-body" style="">
+          <h1 class="results-header">результаты</h1>
+
+          <div class="results-scroller">
+            <div class="test-result" v-html="testResult" />
+
+            <div
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid;
+                margin-bottom: 10em;
+              "
+            >
+              <v-btn variant="text" @click="reset">Пройти тест заново</v-btn>
+            </div>
+          </div>
+        </div>
       </div>
     </v-expand-transition>
-
-    <!-- <v-card class="mx-auto" prepend-icon="$vuetify" :subtitle="`Вопрос ${question_number} из 10`" width="400">
-      <template v-slot:title>
-        <span class="font-weight-black">Мой очень сложный тест</span>
-      </template>
-
-<v-card-text class="pt-4">
-  Даете ли вы объявление о вашем мероприятии открыто (в открытых
-  тг-каналах, в объявлениях, со своего личного аккаунта)?
-</v-card-text>
-
-<template v-slot:actions>
-        <v-btn text="Да" color="success" @click="question_number++"></v-btn>
-        <v-btn text="Нет" color="error"></v-btn>
-      </template>
-</v-card> -->
   </div>
 </template>
 
@@ -115,23 +159,27 @@ let questions = [
   {
     question: "Вы приглашаете только знакомых людей?",
     answer: null,
+    answer_display: null,
   },
   {
     question:
       "Даете ли вы объявление о вашем мероприятии публично: со \
       своего личного аккаунта в открытых источниках?",
     answer: null,
+    answer_display: null,
   },
   {
     question:
       "Есть ли у вас в каком-либо виде база с личными данными участни:ц?",
     answer: null,
+    answer_display: null,
   },
   {
     question:
       "Есть ли в названии мероприятия триггерная лексика\
       (например “ЛГБТ-шабаш” или “антивоенный пикник”)?",
     answer: null,
+    answer_display: null,
   },
   {
     question:
@@ -139,15 +187,17 @@ let questions = [
        даже если формально они законные (был случай, когда работников \
        гей-бара привлекли за ЛГБТ-пропаганду)?",
     answer: null,
+    answer_display: null,
   },
   {
     question:
       "Является ли сама тематика мероприятия потенциально триггерной \
-      и привлекающей внимание полиции (ЛГБТ-повестка, феминизм, \
+      и привлекающей внимание полиции (квир-активизм, феминизм, \
       антивоенный активизм итп), или же вы собрались делать \
       что-то безобидное (пикник, воркшоп по вязанию крючком, \
       просмотр нового диснеевского мультика)?",
     answer: null,
+    answer_display: null,
   },
 ];
 
@@ -188,6 +238,10 @@ async function showResult() {
 function select(i, answer) {
   questions[i].answer = answer;
 
+  setTimeout(() => {
+    questions[i].answer_display = answer;
+  }, 100);
+
   if (currentSlide.value < questions.length - 1) {
     currentSlide.value += 1;
   } else {
@@ -206,35 +260,139 @@ function reset() {
 </script>
 
 <style scoped>
-
-.qtitle {
-  font-size: 2em;
+.bgimage {
+  background-image: url("/design/desktop_background.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
 .question-body {
-  font-size: 1.5rem;
+  font-size: 1.5em;
+}
+
+.questionarie-body {
+  width: 100%;
+  height: 100%;
+  padding: 3em 5em;
+  border-radius: 1em;
+}
+
+.title-image {
+  height: 6em;
+  width: auto;
+  display: block;
+  margin-right: 16px;
+}
+
+.results-body {
+  width: 100%;
+  max-width: 50em;
+  padding: 2em;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 3;
+}
+
+.results-header {
+  margin-bottom: 1em;
+}
+
+.results-scroller {
+  overflow-y: auto;
+  padding-right: 3em;
+}
+
+@media (max-width: 700px) {
+  .results-body {
+    padding: 2em 0.5em;
+  }
+
+  .results-scroller {
+    padding-right: 1em;
+  }
 }
 
 @media (max-width: 600px) {
+  .title-image {
+    height: 3em;
+  }
+
+  .results-header {
+    font-size: 2em;
+  }
+
   .question-body {
-    font-size: 1.2rem;
+    font-size: 1.2em;
+  }
+
+  .questionarie-body {
+    padding: 2em;
   }
 
   .qtitle {
     font-size: 1.5em;
   }
 }
-
 @media (max-width: 400px) {
+  .back-button {
+    display: none;
+  }
+}
+@media (max-width: 300px) {
+  .results-header {
+    font-size: 1em;
+  }
+
+  .title-image {
+    height: 2em;
+  }
+
+  .qtitle {
+    font-size: 1em;
+  }
+
   .question-body {
-    font-size: 1rem;
+    font-size: 1em;
+  }
+
+  .questionarie-body {
+    padding: 1em;
   }
 }
 </style>
 
 <style>
+@media (max-width: 600px) {
+  .test-result {
+    font-size: 0.8em !important;
+  }
+
+  .v-btn--size-large {
+    padding: 0px !important;
+  }
+}
+@media (max-width: 300px) {
+  .test-result {
+    font-size: 0.5em !important;
+  }
+
+  .v-btn--size-large {
+    min-width: 50px !important;
+  }
+  .v-btn__prepend {
+    margin-inline: 0 !important;
+  }
+  .questionarie-body .v-btn__content {
+    display: none !important;
+  }
+}
+
 .test-result span {
-  color: #1956b3;
+  color: rgb(var(--v-theme-primary));
   font-weight: bold;
 }
 

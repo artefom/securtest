@@ -8,3 +8,8 @@
 // @use 'vuetify/settings' with (
 //   $color-pack: false
 // );
+
+@use "vuetify/settings" with (
+  $button-height: 40px,
+  $button-font-size: 1em,
+);
