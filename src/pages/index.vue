@@ -553,7 +553,11 @@ function reset() {
 <style>
 @media (max-width: 600px) {
   .test-result {
-    font-size: 0.8em !important;
+    font-size: 0.9em !important;
+  }
+
+  .disclaimer {
+    font-size: 0.9em !important;
   }
 
   .v-btn--size-large {
@@ -565,9 +569,14 @@ function reset() {
     font-size: 0.5em !important;
   }
 
+  .disclaimer {
+    font-size: 0.5em !important;
+  }
+
   .v-btn--size-large {
     min-width: 50px !important;
   }
+
   .v-btn__prepend {
     margin-inline: 0 !important;
   }
@@ -580,7 +589,7 @@ function reset() {
   font-size: 1.4em;
 }
 
-.test-result p {
+.test-result {
   font-size: 1.4em;
 }
 
@@ -600,7 +609,6 @@ function reset() {
 
 .test-result ul li {
   padding-top: 0.5em;
-  font-size: 1.4em;
 }
 
 .test-result p {
