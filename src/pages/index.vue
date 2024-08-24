@@ -2,6 +2,10 @@
   <div class="bgimage">
     <div class="front-shrooms" />
 
+    <div class="logoline logoline-size">
+      <h1>грибни:ца</h1>
+    </div>
+
     <div v-if="showQuestions" class="questionarie-container">
       <div style="display: flex; align-items: center; margin-bottom: 0.5em">
         <img
@@ -95,20 +99,32 @@
         "
       >
         <div class="results-body" style="">
+          <div class="logoline-results logoline-size">
+            <h1>грибни:ца</h1>
+          </div>
+
           <h1 class="results-header">результаты</h1>
 
           <div class="results-scroller">
             <div class="test-result" v-html="testResult" />
+
+            <div class="disclaimer">
+              Если у вас остались вопросы по безопасности или организации,
+              вы хотите запустить какой-то движ, но вам не хватает поддержки —
+              напишите в наш
+              <a href="https://t.me/gribnitsa1_bot"> анонимный бот </a>
+              и мы постараемся вам помочь! У наших активист:ок есть возможность
+              провести с желающими индивидуальные анонимные созвоны для разбора
+              конкретно вашего кейса.
+            </div>
 
             <div
               style="
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                margin-top: 10px;
-                padding-top: 10px;
-                border-top: 1px solid;
-                margin-bottom: 10em;
+                margin-top: 3em;
+                margin-bottom: 7em;
               "
             >
               <v-btn variant="text" @click="reset">Пройти тест заново</v-btn>
@@ -233,6 +249,26 @@ function reset() {
 </script>
 
 <style scoped>
+.logoline-size {
+  font-size: 0.8em;
+}
+
+.logoline {
+  position: absolute;
+  width: 90%;
+  max-width: 60rem;
+  display: flex;
+  justify-content: right;
+  margin-top: 1em;
+}
+
+.logoline-results {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  color: rgb(var(--v-theme-background));
+}
+
 .front-shrooms {
   width: 100%;
   height: 100%;
@@ -245,6 +281,19 @@ function reset() {
   pointer-events: none;
   background-image: url("/design/desktop_shrooms.svg");
   z-index: 2;
+}
+
+.disclaimer {
+  margin-top: 1em;
+  background-color: rgb(var(--v-theme-background));
+  color: white;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.disclaimer a {
+  color: rgb(var(--v-theme-primary));
+  font-weight: bold;
 }
 
 .bgimage {
@@ -265,12 +314,16 @@ function reset() {
 
 /* Styles for portrait-oriented screens (more height than width) */
 @media (max-aspect-ratio: 3/4) {
+  .logoline {
+    margin-top: 3em;
+  }
+
   .bgimage {
     justify-content: baseline !important;
   }
   .questionarie-container {
-    margin-top: 3em;
-    height: 70%;
+    margin-top: 5em;
+    height: 65%;
   }
   .front-shrooms {
     background-image: url("/design/mobile_shrooms.svg");
@@ -280,11 +333,16 @@ function reset() {
   }
 }
 
+@media (min-aspect-ratio: 3/4) {
+  .questionarie-container {
+    margin-top: 15vh;
+    height: 70%;
+  }
+}
+
 .questionarie-container {
-  height: 70%;
   width: 90%;
   max-width: 60rem;
-  margin-top: 10vh;
   /* max-height: 30rem; */
   display: flex;
   flex-direction: column;
@@ -322,7 +380,8 @@ function reset() {
 
 .results-header {
   margin-bottom: 1em;
-  color: #6d5d8f;
+  color: rgb(var(--v-theme-background));
+  font-size: 3em;
 }
 
 .results-scroller {
@@ -333,7 +392,7 @@ function reset() {
 .back-button {
   margin-right: calc(
     max(
-      -1 * ((50vw + (max(50vw, 50vh * 1.77777) * 0.55)) -
+      -1 * ((50vw + (max(50vw, 50vh * 1.77777) * 0.55) - 20px) -
             (50vw + (min(90vw, 60rem) / 2))),
       0px
     )
@@ -351,6 +410,10 @@ function reset() {
 }
 
 @media (max-width: 600px) or (max-height: 500px) or ((max-height: 900px) and (max-width: 700px)) {
+  .logoline-size {
+    font-size: 0.5em;
+  }
+
   .title-image {
     height: 3em;
   }
@@ -377,6 +440,10 @@ function reset() {
   }
 }
 @media (max-width: 300px) or ((max-height: 500px) and (max-width: 700px)) or ((max-height: 400px) and (max-width: 900px)) {
+  .logoline-size {
+    font-size: 0.3em;
+  }
+
   .results-header {
     font-size: 1em;
   }
@@ -427,6 +494,11 @@ function reset() {
 
 .test-result span {
   color: rgb(var(--v-theme-secondary));
+  font-weight: bold;
+}
+
+.test-result a {
+  color: rgb(var(--v-theme-primary));
   font-weight: bold;
 }
 
