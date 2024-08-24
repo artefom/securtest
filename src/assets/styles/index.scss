@@ -19,16 +19,3 @@ h1 {
 .v-btn--variant-outlined {
   border: 2px solid currentColor !important;
 }
-
-// Fills the whole page
-.filler {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-}

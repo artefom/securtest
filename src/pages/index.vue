@@ -1,25 +1,16 @@
 <template>
-  <div
-    class="bgimage"
-    style="
-      height: 100%;
-      max-height: 100vh;
-      max-width: 100vw;
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    "
-  >
-    <div
-      class="filler"
-      style="background-image: url('/design/front_shrooms.svg'); z-index: 2"
-    />
+  <div class="bgimage">
+    <div class="front-shrooms" />
 
-    <div v-if="showQuestions" class="questionarie-container" style="">
-      <div style="display: flex; align-items: center; margin-bottom: 0.5em">
+    <div v-if="showQuestions" class="questionarie-container">
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.5em;
+          margin-top: 3em;
+        "
+      >
         <img
           class="title-image"
           src="/design/logo_white.svg"
@@ -249,7 +240,29 @@ function reset() {
 </script>
 
 <style scoped>
+.front-shrooms {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  background-image: url("/design/desktop_shrooms.svg");
+  z-index: 2;
+}
+
 .bgimage {
+  height: 100%;
+  max-height: 100vh;
+  max-width: 100vw;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-image: url("/design/desktop_background.svg");
   background-size: cover;
   background-position: center;
@@ -257,11 +270,33 @@ function reset() {
   position: relative;
 }
 
+@media (min-aspect-ratio: 3/4) {
+  .bgimage {
+    justify-content: center;
+  }
+}
+
+/* Styles for portrait-oriented screens (more height than width) */
+@media (max-aspect-ratio: 3/4) {
+  .bgimage {
+    justify-content: baseline !important;
+  }
+  .questionarie-container {
+    height: 70%;
+  }
+  .front-shrooms {
+    background-image: url("/design/mobile_shrooms.svg");
+  }
+  .bgimage {
+    background-image: url("/design/mobile_background.svg");
+  }
+}
+
 .questionarie-container {
-  height: 80%;
+  /* height: 80%; */
   width: 90%;
   max-width: 60rem;
-  max-height: 30rem;
+  /* max-height: 30rem; */
   display: flex;
   flex-direction: column;
 }
@@ -313,18 +348,6 @@ function reset() {
       0px
     )
   );
-}
-
-@media (max-width: 1000px) {
-  .questionarie-container {
-    max-height: 50rem;
-  }
-}
-
-@media (max-width: 500px) {
-  .questionarie-container {
-    height: 90%;
-  }
 }
 
 @media (max-width: 700px) {
