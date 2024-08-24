@@ -474,10 +474,6 @@ function reset() {
 
 /* For extra-large screens */
 @media (min-width: 120em) {
-  .disclaimer {
-    font-size: 1.4em;
-  }
-
   .questionarie-body {
     max-height: 30rem;
   }
@@ -578,6 +574,10 @@ function reset() {
   .questionarie-body .v-btn__content {
     display: none !important;
   }
+}
+
+.disclaimer {
+  font-size: 1.4em;
 }
 
 .test-result p {
