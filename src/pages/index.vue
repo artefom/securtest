@@ -3,7 +3,16 @@
     <div class="front-shrooms" />
 
     <div class="logoline logoline-size">
-      <h1>грибни:ца</h1>
+      <a href="https://t.me/gribni_tsa">
+        <div style="display: flex; flex-direction: row; align-items: center">
+          <h1>грибни:ца</h1>
+          <img
+            class="logo-image"
+            src="/design/logo_white.svg"
+            alt="Description"
+          />
+        </div>
+      </a>
     </div>
 
     <div v-if="showQuestions" class="questionarie-container">
@@ -288,6 +297,10 @@ function reset() {
   font-size: 0.8em;
 }
 
+.logoline a {
+  color: white;
+}
+
 .logoline {
   position: absolute;
   width: 90%;
@@ -399,6 +412,12 @@ function reset() {
   margin-top: 1em;
 }
 
+.logo-image {
+  height: 3em;
+  display: block;
+  margin-left: 5px;
+}
+
 .title-image {
   height: 6em;
   width: auto;
@@ -438,9 +457,10 @@ function reset() {
   );
 }
 
-@media (min-width: 900px) {
+/* For extra-large screens */
+@media (min-width: 120em) {
   .disclaimer {
-    font-size: 1.5em;
+    font-size: 1.4em;
   }
 
   .questionarie-body {
@@ -542,12 +562,6 @@ function reset() {
   }
   .questionarie-body .v-btn__content {
     display: none !important;
-  }
-}
-
-@media (min-width: 900px) {
-  .test-result {
-    font-size: 1.5em;
   }
 }
 
