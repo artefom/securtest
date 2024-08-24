@@ -139,7 +139,18 @@
       >
         <div class="results-body" style="">
           <div class="logoline-results logoline-size">
-            <h1>грибни:ца</h1>
+            <a href="https://t.me/gribni_tsa">
+              <div
+                style="display: flex; flex-direction: row; align-items: center"
+              >
+                <h1>грибни:ца</h1>
+                <img
+                  class="logo-image"
+                  src="/design/logo_dark.svg"
+                  alt="Description"
+                />
+              </div>
+            </a>
           </div>
 
           <h1 class="results-header">результаты</h1>
@@ -299,6 +310,10 @@ function reset() {
 
 .logoline a {
   color: white;
+}
+
+.logoline-results a {
+  color: rgb(var(--v-theme-background));
 }
 
 .logoline {
