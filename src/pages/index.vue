@@ -3,14 +3,7 @@
     <div class="front-shrooms" />
 
     <div v-if="showQuestions" class="questionarie-container">
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          margin-bottom: 0.5em;
-          margin-top: 3em;
-        "
-      >
+      <div style="display: flex; align-items: center; margin-bottom: 0.5em">
         <img
           class="title-image"
           src="/design/logo_white.svg"
@@ -270,18 +263,13 @@ function reset() {
   position: relative;
 }
 
-@media (min-aspect-ratio: 3/4) {
-  .bgimage {
-    justify-content: center;
-  }
-}
-
 /* Styles for portrait-oriented screens (more height than width) */
 @media (max-aspect-ratio: 3/4) {
   .bgimage {
     justify-content: baseline !important;
   }
   .questionarie-container {
+    margin-top: 3em;
     height: 70%;
   }
   .front-shrooms {
@@ -293,9 +281,10 @@ function reset() {
 }
 
 .questionarie-container {
-  /* height: 80%; */
+  height: 70%;
   width: 90%;
   max-width: 60rem;
+  margin-top: 10vh;
   /* max-height: 30rem; */
   display: flex;
   flex-direction: column;
@@ -333,7 +322,7 @@ function reset() {
 
 .results-header {
   margin-bottom: 1em;
-  color: #6D5D8F;
+  color: #6d5d8f;
 }
 
 .results-scroller {
