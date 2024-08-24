@@ -551,6 +551,10 @@ function reset() {
   }
 }
 
+.test-result p {
+  font-size: 1.4em;
+}
+
 .test-result span {
   color: rgb(var(--v-theme-secondary));
   font-weight: bold;
@@ -567,6 +571,7 @@ function reset() {
 
 .test-result ul li {
   padding-top: 0.5em;
+  font-size: 1.4em;
 }
 
 .test-result p {
