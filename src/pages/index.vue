@@ -189,6 +189,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import botSvc from '@/service/bot_api';
 
 let currentSlide = ref(0);
 let showLanding = ref(true);
@@ -277,6 +278,7 @@ function start() {
 async function showResult() {
   await fetchRenderedText();
   showQuestions.value = false;
+  await botSvc.record_result_stats();
 }
 
 function select(i, answer) {
