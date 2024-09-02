@@ -38,7 +38,7 @@
           <p class="question-body" style="flex-grow: 1">
             Привет! Этот тест — часть
             <a
-              href="https://drive.google.com/file/d/1H9uYv1Ew4TRKfi-3-enyteF4rGFZufFI"
+              href="https://drive.google.com/file/d/1qg4SSiZA47ocCODJTupZUHTkjBmEznPM"
               target="_blank"
               ><v-icon icon="mdi-open-in-new" /> хендбука</a
             >
